@@ -1,0 +1,197 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vila Toscana|Eventos</title>
+<!-- INICIO DOS LINKS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+<!-- FINAL DOS LINKS -->
+
+<!-- INICIO DO STYLE -->
+    <style>
+
+    .no-hover-button:hover {
+    background-color: white;
+}
+
+
+    body {
+      background-color: white;
+      color: #785333;
+      font-family: "Cinzel", serif;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .descricao{ font-family: "Poppins", Sans-serif;
+        font-weight: normal;
+        font-size: 14px;}
+
+    .subtitulo {background-color: white;
+      color: #785333;
+      font-family: "Cinzel", serif;
+      font-size: 18px;
+      font-weight: 700;}
+
+    .atividades {color: #688674;
+
+    }
+    .btn {
+    color: white; background:#785333; border: 2px solid #785333;
+    }
+      .btn, .adquirir-ingresso {
+        color: white;
+        background-color: #785333;
+        border: 2px solid #785333;
+    }
+
+    .btn:hover, .adquirir-ingresso:hover {
+        background-color: #785333;
+        color: white;
+        border: 2px solid #785333;
+    }
+   </style>
+<!-- FINAL DO STYLE -->
+
+</head>
+<body>
+
+<!-- INICIO DA NAV -->
+<nav  class="navbar navbar-expand-lg" >
+<a class="navbar-brand" href="#">
+    <img src="{% static 'imagens/logo.png' %}" style="width:150px">
+</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Alterna navegação">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link"  style ="color: #785333;" href="#">Home<span class="sr-only">(Página atual)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style ="color: #785333;"  href="#">Sobre nós</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  style ="color: #785333;" href="#">Eventos</a>
+      </li>
+
+    </ul>
+    <a href="{% url 'login' %}">
+        <button class="btn my-2 my-sm-0" type="button">Login</button>
+    </a>
+
+  </div>
+</nav>
+<!-- FINAL DA NAV -->
+
+<!-- INICIO DAS ATIVIDADES -->
+<br>
+<div class="atividades">
+    <div class="container">
+        <div class="row" style="">
+            <div class="col-md-6 border"  style="padding: 20px;">
+                 <div class="atividade p-3" style="text-align:center">Atividade 1</div>
+                <p class="subtitulo">Desafio de Memória: Divirta-se e Exercite Sua Mente! </p>
+                <p class="descricao">Quer exercitar a mente e se divertir ao mesmo tempo? Não perca a nossa Atividade de Estimulação Cognitiva! Jogos de memória estão à disposição para manter sua mente afiada, excelente oportunidade de socialização com os amigos do flat!</p>
+                <center>
+                    <img src="{% static 'imagens/atividade1.jpg' %}" style="width:300px; padding: 20px;text_align:center">
+                   <button class="btn my-2 my-sm-0 adquirir-ingresso" style="display: none;">Adquirir Ingresso</button>
+                        <div class="login-message" style="text-align: center; display: none;">
+                            <p>Você precisa estar logado para adquirir o ingresso.</p>
+                            <a  class="btn"href="/login">Faça login aqui</a>
+                    </div>
+                </center>
+            </div>
+            <div class="col-md-6 border">
+                <div class="atividade p-3 " style="text-align:center">Atividade 2</div>
+                <p class="subtitulo">Hora da Criatividade: Aula de Arte e Artesanato! </p>
+                <p class="descricao">Deixe sua imaginação fluir! Venha participar da nossa Aula de Arte e Artesanato, onde você pode explorar técnicas como pintura, cerâmica e scrapbooking. Uma atividade perfeita para relaxar, se expressar e, claro, criar lindas obras de arte!</p>
+                <center>
+                <img src="{% static 'imagens/atividade2.jpg' %}" style="width:300px; padding: 20px;text_align:center">
+                 <button class="btn my-2 my-sm-0 adquirir-ingresso" style="display: none;">Adquirir Ingresso</button>
+                        <div class="login-message" style="text-align: center; display: none;">
+                            <p>Você precisa estar logado para adquirir o ingresso.</p>
+                            <a  class="btn"href="/login">Faça login aqui</a>
+                    </div>
+                </center>
+            </div>
+        </div>
+        <div class="row" style="margin-top:55px">
+
+            <div class="col-md-6 border">
+                <div class="atividade p-3 " style="text-align:center">Atividade 3</div>
+                <p class="subtitulo"> Festa de Fantasia: Um Mundo de Magia e Diversão!</p>
+                <p class="descricao">Prepare sua fantasia mais criativa e venha se encantar na nossa Festa de Fantasia! Um evento cheio de magia, onde você pode ser quem sempre sonhou: heróis, princesas, personagens históricos ou até mesmo algo totalmente inusitado!
+                    Será uma noite de risadas e surpresas que vão deixar todos com um sorriso no rosto. </p>
+               <center>
+                <img src="{% static 'imagens/atividade3.jpg' %}" style="width:300px; padding: 20px;text_align:center">
+                <button class="btn">Adquirir Ingresso</button>
+                <p id="login-message"></p>
+
+
+                </center>
+            </div>
+            <div class="col-md-6 border">
+                <div class="atividade p-3 " style="text-align:center">Atividade 4</div>
+                <p class="subtitulo">Descubra o Mundo Digital: Simplificando a internet!</p>
+                <p class="descricao">Aprenda a mexer nas redes sociais, usar smartphones e navegar na internet de forma simples, segura e prática. Este curso foi desenvolvido para ajudar você a se conectar com amigos e familiares, explorar o mundo digital e trazer mais facilidade e diversão para o seu dia a dia. </p>
+                 <center>
+                <img src="{% static 'imagens/atividade4.jpg' %}" style="width:300px; padding: 20px;text_align:center">
+                <button id="adquirir-ingresso">Adquirir Ingresso</button>
+                <p id="login-message"></p>
+
+
+                </center>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Seleciona todos os botões com a classe 'adquirir-ingresso'
+const adquirirIngressoButtons = document.querySelectorAll('.adquirir-ingresso');
+const loginMessage = document.querySelector('.login-message');
+
+// Função para verificar o login do usuário
+function verificarLogin() {
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+        // Exibe os botões de "adquirir ingresso"
+        adquirirIngressoButtons.forEach(button => button.style.display = 'block');
+        // Esconde a mensagem de login
+        loginMessage.style.display = 'none';
+    } else {
+        // Esconde os botões
+        adquirirIngressoButtons.forEach(button => button.style.display = 'none');
+        // Exibe a mensagem de login
+        loginMessage.style.display = 'block';
+    }
+}
+
+// Chama a função de verificação no carregamento da página
+document.addEventListener('DOMContentLoaded', verificarLogin);
+
+// Funções de simulação de login/logout
+function realizarLogout() {
+    localStorage.setItem('isLoggedIn', 'false');
+    verificarLogin();
+}
+
+function realizarLogin() {
+    localStorage.setItem('isLoggedIn', 'true');
+    verificarLogin();
+}
+</script>
+
+</body>
+</html>
