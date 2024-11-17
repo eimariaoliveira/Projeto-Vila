@@ -12,6 +12,7 @@ def get_file_path(_instance, filename):
     return filename
 
 
+
 class Evento(models.Model):
     nome = models.CharField(_('Nome'), blank=True, max_length=100)
     descricao = models.TextField(_('Descrição'), max_length=500)
@@ -214,3 +215,8 @@ class Notificacao(models.Model):
 
     def __str__(self):
         return f"Notificacao {self.atividade} - Mensagem: {self.mensagem} - status: {self.status}"
+
+
+
+
+
