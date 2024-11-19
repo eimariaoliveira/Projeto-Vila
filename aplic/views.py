@@ -1,39 +1,65 @@
-from django.views.generic import ListView
-from .models import Evento
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
-from .models import Feedback
+from django.shortcuts import render, redirect, reverse
+from .forms import UsuarioCreationForm
+from django.views.generic import TemplateView, FormView
+from django.contrib.auth.decorators import login_required
+from .models import Evento, Atividade
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-def index(request):
-    return render(request, 'index.html')
-class EventosView(ListView):
-    model = Evento
-    template_name = 'eventos.html'
-    context_object_name = 'eventos'
+
+class IndexView(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['eventos'] = Evento.objects.order_by('-id').all()
+        return context
+
+class EventoView(TemplateView):
+    template_name = 'evento.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EventoView, self).get_context_data(**kwargs)
+        context['eventos'] = Evento.objects.all()
+        return context
+
+class EventoDetalheView(TemplateView):
+    template_name = 'detalhes_eventos.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
+        id = self.kwargs['id']
+        context['evento'] = Evento.objects.get(id=id)
+        context['atividades'] = context['evento'].atividades.all()
+        return context
+
+class AtividadeView(TemplateView):
+    template_name = 'detalhes_atividade.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        id = self.kwargs['id']
+        context['atividade'] = Atividade.objects.get(id=id)
         return context
 
 
-def cadastro(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('index')
-    else:
-        form = UserCreationForm()
-    return render(request, 'cadastro.html', {'form': form})
-def lista_atividades(request):
-    atividades = Evento.objects.all()
-    return render(request, 'eventos.html', {'atividades': atividades})
 
 
-class FeedbackView(ListView):
-    model = Feedback
-    template_name = 'feedback.html'
-    context_object_name = 'eventos'
+class CriarUsuario(FormView):
+    template_name = 'cadastro.html'
+    form_class = UsuarioCreationForm
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid
+
+    def get_success_url(self):
+        return reverse('login')
+
+
+
+
+
+
+
+
+

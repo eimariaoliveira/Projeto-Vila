@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -48,7 +49,7 @@
         display: flex;
         justify-content: center; /* Centraliza horizontalmente */
         align-items: center; /* Centraliza verticalmente */
-        height: 100vh; /* Ocupa a altura inteira da tela */
+        height: 140vh; /* Ocupa a altura inteira da tela */
         background-color: #f0f0f0; /* Cor de fundo */
     }
 
@@ -189,11 +190,11 @@ footer {
                 <a class="nav-link" style="color: #785333;" href="#">Sobre nós</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="color: #785333;" href="{% url 'eventos' %}">Eventos</a>
+                <a class="nav-link" style="color: #785333;" href="#">Eventos</a>
             </li>
         </ul>
         <a href="{% url 'index' %}">
-            <button class="btn my-2 my-sm-0" type="button">Sair</button>
+            <button class="btn my-2 my-sm-0" type="button">Voltar</button>
         </a>
     </div>
 </nav>

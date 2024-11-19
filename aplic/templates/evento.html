@@ -1,0 +1,341 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vila Toscana|Eventos</title>
+<!-- INICIO DOS LINKS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+<!-- FINAL DOS LINKS -->
+
+<!-- INICIO DO STYLE -->
+    <style>
+
+    .no-hover-button:hover {
+    background-color: white;
+}
+
+
+    body {
+      background-color: white;
+      color: #785333;
+      font-family: "Cinzel", serif;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .descricao{ font-family: "Poppins", Sans-serif;
+        font-weight: normal;
+        font-size: 14px;}
+
+    .subtitulo {background-color: white;
+      color: #785333;
+      font-family: "Cinzel", serif;
+      font-size: 15px;
+      font-weight: 700;}
+
+    .atividades {color: #688674;
+
+    }
+    .btn {
+    color: white; background:#785333; border: 2px solid #785333;
+    }
+      .btn, .adquirir-ingresso {
+        color: white;
+        background-color: #785333;
+        border: 2px solid #785333;
+    }
+      li a i {
+  font-size: 24px;  /* Tamanho do ícone */
+  color: white;     /* Cor branca */
+  margin: 0 10px;   /* Espaço entre os ícones */
+}
+
+li a:hover i {
+  color: white;   /* Cor ao passar o mouse */
+}
+
+
+    .btn:hover, .adquirir-ingresso:hover {
+        background-color: #785333;
+        color: white;
+        border: 2px solid #785333;
+    }
+     .container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column; /* Mantém os cards empilhados */
+    gap: 20px; /* Espaço entre as divs */
+    padding: 50px 0;
+}
+     
+     
+.atividades .row {
+    gap: 15px; /* Espaço entre os itens */
+}
+
+.card-img-top {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}     
+footer {
+  background-color: #688674;
+  padding: 20px;
+  text-align: left;
+  color:white
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.footer-menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.footer-menu li {
+  display: inline;
+  margin: 0 15px;
+}
+
+.footer-menu a {
+  text-decoration: none;
+  color: #333;
+}
+
+.footer-redes ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.footer-redes li {
+  display: inline;
+  margin: 0 10px;
+}
+
+.footer-contato p {
+  margin: 5px 0;
+}
+
+.footer-contato a {
+  text-decoration: none;
+  color: #333;
+}
+
+
+    .btn:hover, .adquirir-ingresso:hover {
+        background-color: #785333;
+        color: white;
+        border: 2px solid #785333;
+    }
+   </style>
+<!-- FINAL DO STYLE -->
+
+</head>
+<body>
+
+
+<nav  class="navbar navbar-expand-lg" >
+<a class="navbar-brand" href="{% url 'index' %}">
+    <img src="{% static 'imagens/logo.png' %}"  style="width:180px">
+</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Alterna navegação">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link"  style ="color: #785333;" href="{% url 'index' %}">Home<span class="sr-only">(Página atual)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style ="color: #785333;"  href="#">Sobre nós</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  style ="color: #785333;"  href="{% url 'evento' %}">Eventos</a>
+      </li>
+
+    </ul>
+        {% if user.is_authenticated %}
+        <a href="#">
+            <button class="btn my-2 my-sm-0" type="button">Sair</button>
+        </a>
+    {% else %}
+        <a href="{% url 'login' %}">
+            <button class="btn my-2 my-sm-0" type="button">Login</button>
+        </a>
+    {% endif %}
+
+  </div>
+</nav>
+{% block content %}
+<!-- INICIO DAS ATIVIDADES -->
+<br>
+<div class="atividades">
+    <div class="container">
+        <div class="row">
+            {% for evento in eventos %}
+            <div class="col-md-4 col-sm-6 col-12 mb-4">
+                <div class="border p-3 text-center">
+                    <div class="atividade" style="font-size: 30px;">{{ evento.nome }}</div>
+                    <p class="subtitulo">{{ evento.descricao }}</p>
+                    <center>
+                        {% if evento.imagem %}
+                        <img src="{{ evento.imagem.thumb.url }}" class="card-img-top img-fluid mb-3" alt="{{ evento.nome }}">
+                        {% else %}
+                        <img src="{% static 'imagens/default.jpg' %}" class="card-img-top img-fluid mb-3" alt="Imagem não disponível">
+                        {% endif %}
+                    </center>
+                    {% if user.is_authenticated %}
+                    <button class="btn btn-block my-2">Comprar Ingresso</button>
+                    {% else %}
+                    <div class="login-message text-center">
+                        <p>Você precisa estar logado para adquirir o ingresso.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{#            </div>#}
+{#               <div class="col-md-6 border">#}
+{#                    <div class="atividade p-3" style="text-align:center">Atividade 2</div>#}
+{#                    <p class="subtitulo">Hora da Criatividade: Aula de Arte e Artesanato!</p>#}
+{#                   <p class="descricao">Categoria: </p>#}
+{#                    <p class="descricao">#}
+{#                        Deixe sua imaginação fluir! Venha participar da nossa Aula de Arte e Artesanato, onde você pode explorar#}
+{#                        técnicas como pintura, cerâmica e scrapbooking. Uma atividade perfeita para relaxar, se expressar e, claro,#}
+{#                        criar lindas obras de arte!#}
+{#                    </p>#}
+{#                    <center>#}
+{#                        <img src="{% static 'imagens/atividade2.jpg' %}" style="width:300px; padding: 20px; text-align:center;">#}
+{#                        {% if user.is_authenticated %}#}
+{#                         <button class="btn my-2 my-sm-0" style="visibility: visible !important; display: block !important;">Comprar Ingresso</button>#}
+{#                        {% else %}#}
+{#                            <div class="login-message" style="text-align: center;">#}
+{#                                <p>Você precisa estar logado para adquirir o ingresso.</p>#}
+{#                            </div>#}
+{#                        {% endif %}#}
+{#                    </center>#}
+{##}
+{#                </div>#}
+{#                <div class="col-md-6 border" >#}
+{#                    <div class="atividade p-3" style="text-align:center">Atividade 3</div>#}
+{#                    <p class="subtitulo">Festa de Fantasia: Um Mundo de Magia e Diversão!</p>#}
+{#                    <p class="descricao">Categoria: </p>#}
+{#                    <p class="descricao">#}
+{#                        Prepare sua fantasia mais criativa e venha se encantar na nossa Festa de Fantasia! Um evento cheio de magia,#}
+{#                        onde você pode ser quem sempre sonhou: heróis, princesas, personagens históricos ou até mesmo algo totalmente#}
+{#                        inusitado! Será uma noite de risadas e surpresas que vão deixar todos com um sorriso no rosto.#}
+{#                    </p>#}
+{#                     <center>#}
+{#                        <img src="{% static 'imagens/atividade3.jpg' %}" style="width:300px; padding: 20px; text-align:center;">#}
+{#                        {% if user.is_authenticated %}#}
+{#                         <button class="btn my-2 my-sm-0" style="visibility: visible !important; display: block !important;">Comprar Ingresso</button>#}
+{#                        {% else %}#}
+{#                            <div class="login-message" style="text-align: center;">#}
+{#                                <p>Você precisa estar logado para adquirir o ingresso.</p>#}
+{#                            </div>#}
+{#                        {% endif %}#}
+{#                    </center>#}
+{##}
+{#                    </div>#}
+{#                   <div class="col-md-6 border" >#}
+{#                    <div class="atividade p-3" style="text-align:center">Atividade 4</div>#}
+{#                    <p class="subtitulo">Festa de Fantasia: Um Mundo de Magia e Diversão!</p>#}
+{#                    <p class="descricao">Categoria: </p>#}
+{#                    <p class="descricao">#}
+{#                        Prepare sua fantasia mais criativa e venha se encantar na nossa Festa de Fantasia! Um evento cheio de magia,#}
+{#                        onde você pode ser quem sempre sonhou: heróis, princesas, personagens históricos ou até mesmo algo totalmente#}
+{#                        inusitado! Será uma noite de risadas e surpresas que vão deixar todos com um sorriso no rosto.#}
+{#                    </p>#}
+{#                     <center>#}
+{#                        <img src="{% static 'imagens/atividade4.jpg' %}" style="width:300px; padding: 20px; text-align:center;">#}
+{#                        {% if user.is_authenticated %}#}
+{#                         <button class="btn my-2 my-sm-0" style="visibility: visible !important; display: block !important;">Comprar Ingresso</button>#}
+{#                        {% else %}#}
+{#                            <div class="login-message" style="text-align: center;">#}
+{#                                <p>Você precisa estar logado para adquirir o ingresso.</p>#}
+{#                            </div>#}
+{#                        {% endif %}#}
+{#                    </center>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#     </div>#}
+{% endblock %}
+ <footer>
+  <div class="footer-container">
+    <div class="footer-redes" style="text-align:center">
+      <ul>
+        <li><a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a></li>
+            <li><a href="mailto:contato@vilatoscana.com.br"><i class="fas fa-envelope"></i></a></li>
+            <li><a href="https://maps.google.com" target="_blank"><i class="fas fa-map-marker-alt"></i></a></li>
+
+      </ul>
+    </div>
+    <div class="footer-contato">
+      <p>Telefone: (32) 3321-7515</p>
+      <p>WhatsApp: (32) 9 9808-6609</p>
+      <p>E-mail: vilatoscana@gmail.com</p>
+    </div>
+  </div>
+          <p style="padding:20px;text-align:center">Todos os direitos reservados</p>
+</footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const adquirirIngressoButtons = document.querySelectorAll('.adquirir-ingresso');
+    const loginMessages = document.querySelectorAll('.login-message');
+
+    // Função para verificar o login do usuário
+    function verificarLogin() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+        adquirirIngressoButtons.forEach(button => {
+            button.style.display = isLoggedIn ? 'block' : 'none';
+        });
+
+        loginMessages.forEach(message => {
+            message.style.display = isLoggedIn ? 'none' : 'block';
+        });
+    }
+
+    // Chama a função de verificação no carregamento da página
+    verificarLogin();
+
+    // Funções de simulação de login/logout
+    window.realizarLogout = function() {
+        localStorage.setItem('isLoggedIn', 'false');
+        verificarLogin();
+    };
+
+    window.realizarLogin = function() {
+        localStorage.setItem('isLoggedIn', 'true');
+        verificarLogin();
+    };
+});
+</script>
+
+
+</body>
+</html>

@@ -1,26 +1,18 @@
-from django.urls import path
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
 from django.contrib.auth.views import LoginView
-from . import views
-from .views import EventosView
-from django.contrib.auth.views import LogoutView
-from .views import FeedbackView
+from django.urls import path
+from .views import IndexView, EventoView, EventoDetalheView, CriarUsuario, AtividadeView
+from rest_framework.routers import SimpleRouter
+from django.contrib.auth import views as auth_views
 
 
+router = SimpleRouter()
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path('login/', LoginView.as_view(), name='login'),
-    path('eventos/', EventosView.as_view(), name='eventos'),
-    path('logout/', LogoutView.as_view(next_page='index'), name='logout'),
-    path('cadastro/', views.cadastro, name='cadastro'),
-    path('feedback/', FeedbackView.as_view(), name='feedback'),
-
+    path('', IndexView.as_view(), name='index'),
+    path('evento', EventoView.as_view(), name='evento'),
+    path('detalhes_eventos/<int:id>/', EventoDetalheView.as_view(), name='detalhes_eventos'),
+    path('detalhes_atividade/<int:id>/', AtividadeView.as_view(), name='detalhes_atividade'),
+    path('cadastro/', CriarUsuario.as_view(), name='cadastro'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
 
 ]
-
-@login_required
-def adquirir_ingresso(request):
-    return render(request, 'adquirir_ingresso.html')
-

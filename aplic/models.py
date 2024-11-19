@@ -2,15 +2,15 @@ import uuid
 
 from django.core.exceptions import ValidationError
 from django.db import models
-from stdimage import StdImageField
+from stdimage.models import StdImageField
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import AbstractUser
 
 
 def get_file_path(_instance, filename):
     ext = filename.split('.')[-1]
     filename = f'{uuid.uuid4()}.{ext}'
     return filename
-
 
 
 class Evento(models.Model):
@@ -27,31 +27,17 @@ class Evento(models.Model):
         return self.nome
 
 
-class Usuario(models.Model):
-    nome = models.CharField(_('Nome'), max_length=100)
-    cpf = models.CharField(_('CPF'), max_length=11)
-    senha = models.CharField(_('Senha'), blank=True, max_length=50)
+class Usuario(AbstractUser):
+    TIPO_USUARIO = (
+        ('Administrador', _('Administrador')),
+        ('Residente', _('Residente')),
+    )
+
+    tipo = models.CharField(_('Tipo de usuario'), max_length=25, choices=TIPO_USUARIO, default="Residente")
+    cpf = models.CharField(_('CPF'), max_length=11, blank=True, null=True)
     telefone = models.CharField(_('Telefone'), blank=True, max_length=11, help_text=_('Formato (00) 00000-0000'))
-    email = models.EmailField(_('E-mail'), blank=True, max_length=100)
-
-    class Meta:
-        abstract = True
-        verbose_name = _('Usuario')
-        verbose_name_plural = _('Usuarios')
-        ordering = ['id']
-
-    def __str__(self):
-        return self.nome
-
-
-class Administrador(Usuario):
-    cargo = models.CharField(_('Cargo'), blank=True, max_length=100)
-    data_nascimento = models.DateField(_('Data de Nascimento'), blank=True, null=True,
-                                       help_text=_('Formato DD/MM/AAAA'))
-
-    class Meta:
-        verbose_name = _('Administrador')
-        verbose_name_plural = _('Administradores')
+    foto = StdImageField(_('Imagem'), null=True, blank=True, upload_to=get_file_path,
+                         variations={'thumb': {'width': 420, 'height': 260, 'crop': True}})
 
 
 class Categoria(models.Model):
@@ -66,7 +52,7 @@ class Categoria(models.Model):
 
 
 class Atividade(models.Model):
-    evento = models.ForeignKey(Evento, related_name='Evento', blank=True, null=True, on_delete=models.CASCADE)
+    evento = models.ForeignKey(Evento, related_name='atividades', blank=True, null=True, on_delete=models.CASCADE)
     nome = models.CharField(_('Nome'), blank=True, max_length=100)
     descricao = models.TextField(_('Descrição'), max_length=500)
     data_inicio = models.DateField(_('Data de Inicio'), blank=True, null=True, help_text=_('Formato DD/MM/AAAA'))
@@ -85,27 +71,13 @@ class Atividade(models.Model):
         return self.nome
 
 
-class Residente(Usuario):
-    data_nascimento = models.DateField(_('Data de Nascimento'), blank=True, null=True,
-                                       help_text=_('Formato DD/MM/AAAA'))
-    foto = StdImageField(_('Imagem'), null=True, blank=True, upload_to=get_file_path,
-                         variations={'thumb': {'width': 420, 'height': 260, 'crop': True}})
-
-    class Meta:
-        verbose_name = _('Residente')
-        verbose_name_plural = _('Residentes')
-
-    def __str__(self):
-        return self.nome
-
-
 class Responsavel(models.Model):
     nome = models.CharField(_('Nome'), blank=True, max_length=100)
     telefone = models.CharField(_('Telefone'), blank=True, max_length=11, help_text=_('Formato (00) 0000-0000'))
     celular = models.CharField(_('Celular'), blank=True, max_length=11, help_text=_('Formato (00) 00000-0000'))
     telefone_comercial = models.CharField(_('Tel. Comercial'), blank=True, max_length=11,
                                           help_text=_('Formato (00) 0000-0000'))
-    residentes = models.ForeignKey(Residente, on_delete=models.CASCADE)
+    residentes = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _('Responsável')
@@ -150,7 +122,7 @@ class Endereco(models.Model):
     bairro = models.CharField(_('Bairro'), blank=True, max_length=50)
     cidade = models.CharField(_('Cidade'), blank=True, max_length=50)
     estado = models.CharField(_('UF'), blank=True, max_length=2, choices=ESTADOS_CHOICES, help_text=_('Formato AA'))
-    administrador = models.ForeignKey(Administrador, on_delete=models.CASCADE)
+    administrador = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     responsavel = models.ForeignKey(Responsavel, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
@@ -167,7 +139,7 @@ class Inscricao(models.Model):
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente')
     dataHora_inscricao = models.DateTimeField(auto_now_add=True)
-    residente = models.ForeignKey(Residente, on_delete=models.CASCADE, blank=True, null=True)
+    residente = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=True, null=True)
     atividade = models.ForeignKey(Atividade, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
@@ -215,8 +187,3 @@ class Notificacao(models.Model):
 
     def __str__(self):
         return f"Notificacao {self.atividade} - Mensagem: {self.mensagem} - status: {self.status}"
-
-
-
-
-

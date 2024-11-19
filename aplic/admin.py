@@ -1,12 +1,23 @@
 from django.contrib import admin
-from .models import Evento, Administrador, Atividade, Endereco, Responsavel, Residente, Categoria, Inscricao, Feedback, \
-    Notificacao
+from .models import Evento,Usuario, Atividade, Endereco, Responsavel, Categoria, Inscricao, Feedback, Notificacao
+from django.contrib.auth.admin import UserAdmin
 
 
 class AtividadeInline(admin.TabularInline):
     model = Atividade
     extra = 1
 
+field = list(UserAdmin.fieldsets)
+field.append(
+    ('Tipo de usuario', {'fields': ('tipo',)}),
+    )
+
+field.append(
+    ('Informações complementares', {'fields': ('cpf', 'telefone', 'foto')}),
+    )
+UserAdmin.fieldsets = tuple(field)
+
+admin.site.register(Usuario, UserAdmin)
 
 class EnderecoInline(admin.TabularInline):
     model = Endereco
@@ -22,18 +33,6 @@ class ResponsavelInline(admin.TabularInline):
 class EventoAdmin(admin.ModelAdmin):
     inlines = [AtividadeInline]
     list_display = ('nome', 'descricao')
-
-
-@admin.register(Administrador)
-class AdministradorAdmin(admin.ModelAdmin):
-    inlines = [EnderecoInline]
-    list_display = ('nome', 'cargo')
-
-
-@admin.register(Residente)
-class ResidenteAdmin(admin.ModelAdmin):
-    inlines = [ResponsavelInline]
-    list_filter = ('data_nascimento',)
 
 
 @admin.register(Atividade)

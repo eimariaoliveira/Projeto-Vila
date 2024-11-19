@@ -1,0 +1,209 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vila Toscana | Login </title>
+<!-- INICIO DOS LINKS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+<!-- FINAL DOS LINKS -->
+
+<!-- INICIO DO STYLE -->
+    <style>
+    .descricao{ font-family: "Poppins", Sans-serif;
+        font-weight: normal;
+        font-size: 16px;
+        color:#688674!important}
+
+    .no-hover-button:hover {
+    background-color: white;
+}
+
+
+    body {
+      background-color: white;
+      color: #785333;
+      font-family: "Cinzel", serif;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+
+    .btn {
+    color: white; background:#785333; border: 2px solid #785333;
+    }
+   .login-container {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    height: 100vh; /* Ocupa a altura inteira da tela */
+    background-color: #f0f0f0; /* Cor de fundo (opcional) */
+}
+
+/* Estilos para a div de login */
+.login {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Largura fixa da caixa de login */
+    text-align: center;
+}
+
+.login h2 {
+    margin-bottom: 20px;
+    color: #785333; /* Cor de título */
+}
+
+.login form {
+    width: 100%;
+}
+
+.login button {
+    width: 100%;
+    padding: 10px;
+    background-color: #785333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.login input {
+    width: 100%; /* Largura total */
+    padding: 8px; /* Reduzindo o preenchimento */
+    margin: 10px 0; /* Espaço entre os campos */
+    border: 1px solid #ccc; /* Cor da borda */
+    border-radius: 4px; /* Bordas arredondadas */
+    font-size: 14px; /* Tamanho da fonte */
+}
+.login button:hover {
+    background-color: #6c4f2a;
+}
+
+footer {
+  background-color: #688674;
+  padding: 20px;
+  text-align: left;
+  color:white
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.footer-menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.footer-menu li {
+  display: inline;
+  margin: 0 15px;
+}
+
+.footer-menu a {
+  text-decoration: none;
+  color: #333;
+}
+
+.footer-redes ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.footer-redes li {
+  display: inline;
+  margin: 0 10px;
+}
+
+.footer-contato p {
+  margin: 5px 0;
+}
+
+.footer-contato a {
+  text-decoration: none;
+  color: #333;
+}
+
+   </style>
+<!-- FINAL DO STYLE -->
+
+</head>
+<body>
+
+<!-- INICIO DO STYLE -->
+
+<nav  class="navbar navbar-expand-lg" >
+<a class="navbar-brand" href="{% url 'index' %}">
+  <img src="{% static 'imagens/logo.png' %}" style="width:180px">
+</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Alterna navegação">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link"  style ="color: #785333;" href="{% url 'index' %}">Home<span class="sr-only">(Página atual)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style ="color: #785333;"  href="#">Sobre nós</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  style ="color: #785333;"  href="#">Eventos</a>
+      </li>
+
+    </ul>
+    <a href="{% url 'index' %}">
+        <button class="btn my-2 my-sm-0" type="button">Voltar</button>
+    </a>
+
+  </div>
+</nav>
+<div class="login-container">
+    <div class="login border">
+        <h2>Realize seu login:</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <button type="submit" class="btn btn-primary">Entrar</button>
+            <a href="{% url 'cadastro' %}" class="descricao"> Realizar cadastro</a>
+        </form>
+    </div>
+</div>
+<footer>
+  <div class="footer-container">
+    <div class="footer-redes" style="text-align:center">
+      <ul>
+        <li><a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a></li>
+            <li><a href="mailto:contato@vilatoscana.com.br"><i class="fas fa-envelope"></i></a></li>
+            <li><a href="https://maps.google.com" target="_blank"><i class="fas fa-map-marker-alt"></i></a></li>
+
+      </ul>
+    </div>
+    <div class="footer-contato">
+      <p>Telefone: (32) 3321-7515</p>
+      <p>WhatsApp: (32) 9 9808-6609</p>
+      <p>E-mail: vilatoscana@gmail.com</p>
+    </div>
+  </div>
+          <p style="padding:20px;text-align:center">Todos os direitos reservados</p>
+</footer>
+
+</body>
+</html>

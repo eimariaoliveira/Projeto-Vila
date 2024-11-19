@@ -25,7 +25,13 @@
     .no-hover-button:hover {
     background-color: white;
 }
-
+    
+    header {
+        margin: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
     body {
       background-color: white;
@@ -211,7 +217,7 @@ footer {
         <a class="nav-link" style ="color: #785333;"  href="#">Sobre nós</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link"  style ="color: #785333;"  href="{% url 'eventos' %}">Eventos</a>
+        <a class="nav-link"  style ="color: #785333;"  href="{% url 'evento' %}">Eventos</a>
       </li>
 
     </ul>
@@ -247,15 +253,17 @@ footer {
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                   </div>
                   <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <a href="{% url 'eventos' %}" > <img src="{% static 'imagens/atividade1.jpg' %}"  class="d-block w-100" alt="..."></a>
-                    </div>
-                    <div class="carousel-item">
-                        <a href="{% url 'eventos' %}" > <img src="{% static 'imagens/atividade2.jpg' %}"  class="d-block w-100" alt="..."></a>
-                    </div>
-                    <div class="carousel-item">
-                        <a href="{% url 'eventos' %}" > <img src="{% static 'imagens/atividade3.jpg' %}"  class="d-block w-100" alt="..."></a>
-                    </div>
+                      {% for evento in eventos %}
+                        <div class="carousel-item active">
+                            <a href="#" > <img src="{{ evento.imagem.thumb.url }}"  class="d-block w-100" alt="..."></a>
+                        </div>
+                      {% endfor %}
+{#                    <div class="carousel-item">#}
+{#                        <a href="#" > <img src="{% static 'imagens/atividade2.jpg' %}"  class="d-block w-100" alt="..."></a>#}
+{#                    </div>#}
+{#                    <div class="carousel-item">#}
+{#                        <a href="#" > <img src="{% static 'imagens/atividade3.jpg' %}"  class="d-block w-100" alt="..."></a>#}
+{#                    </div>#}
                   </div>
                   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
