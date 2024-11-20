@@ -1,0 +1,35 @@
+{% extends 'base.html'  %}
+
+
+{% block content %}
+
+
+<div class="container">
+<img src="{{evento.imagem.thumb.url}}" alt="...">
+
+<div class="p-5 mb-4 bg-body-tertiary rounded-3">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">{{evento.nome}}</h1>
+        <p class="col-md-8 fs-4">{{evento.descricao}}</p>
+          <p class="col-md-8 fs-4"><strong>Data:</strong> {{evento.data_inicio}}</p>
+        <button class="btn btn-primary btn-lg" type="button">Ingresse-já!</button>
+      </div>
+    </div>
+</div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+    {% for atividade in atividades %}
+       <div class="card" style="width: 18rem;">
+          <img src="{{ atividade.imagem.thumb.url }}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{atividade.nome}}</h5>
+            <p class="card-text">
+                {{atividade.descricao}}
+            </p>
+            <a href="/detalhes_atividade/{{atividade.id}}" class="btn btn-primary">Saiba mais</a>
+          </div>
+        </div>
+    {% endfor %}
+
+      </div>
+{% endblock %}

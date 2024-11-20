@@ -1,0 +1,72 @@
+
+li a i {
+  font-size: 24px;  /* Tamanho do ícone */
+  color: white;     /* Cor branca */
+  margin: 0 10px;   /* Espaço entre os ícones */
+}
+
+li a:hover i {
+  color: white;   /* Cor ao passar o mouse */
+}
+
+footer {
+  background-color: #688674;
+  padding: 20px;
+  text-align: left;
+  color:white
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.footer-menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.footer-menu li {
+  display: inline;
+  margin: 0 15px;
+}
+
+.footer-menu a {
+  text-decoration: none;
+  color: #333;
+}
+
+.footer-redes ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.footer-redes li {
+  display: inline;
+  margin: 0 10px;
+}
+
+.footer-contato p {
+  margin: 5px 0;
+}
+
+.footer-contato a {
+  text-decoration: none;
+  color: #333;
+}
+
+
+    .no-hover-button:hover {
+        background-color: white;
+    }
+
+    body {
+        background-color: white;
+        color: #785333;
+        font-family: "Cinzel", serif;
+        font-size: 24px;
+        font-weight: 700;
+    }

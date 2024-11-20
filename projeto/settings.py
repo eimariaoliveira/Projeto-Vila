@@ -143,9 +143,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [BASE_DIR / 'static',]
 # settings.py
-LOGIN_REDIRECT_URL = '/eventos/'
+LOGIN_REDIRECT_URL = 'evento'
 # settings.py
-LOGIN_URL = '/login/'
+LOGIN_URL = 'login'
 
 CRISPY_ALLOWED_TEMPLATE_PACK = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'

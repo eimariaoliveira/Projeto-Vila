@@ -19,11 +19,7 @@
 
 <!-- INICIO DO STYLE -->
     <style>
-
-    .no-hover-button:hover {
-    background-color: white;
-}
-
+        
 
     body {
       background-color: white;
@@ -32,9 +28,6 @@
       font-size: 24px;
       font-weight: 700;
     }
-    .descricao{ font-family: "Poppins", Sans-serif;
-        font-weight: normal;
-        font-size: 14px;}
 
     .subtitulo {background-color: white;
       color: #785333;
@@ -98,7 +91,7 @@ footer {
 .footer-container {
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: center;
 }
 
 .footer-menu ul {
@@ -152,7 +145,7 @@ footer {
 
 <nav  class="navbar navbar-expand-lg" >
 <a class="navbar-brand" href="{% url 'index' %}">
-    <img src="{% static 'imagens/logo.png' %}"  style="width:180px">
+    <img src="{% static 'imagens/logo.png' %}"  style="width:180px" alt="...">
 </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Alterna navegação">
     <span class="navbar-toggler-icon"></span>
@@ -194,15 +187,13 @@ footer {
                 <div class="border p-3 text-center">
                     <div class="atividade" style="font-size: 30px;">{{ evento.nome }}</div>
                     <p class="subtitulo">{{ evento.descricao }}</p>
-                    <center>
                         {% if evento.imagem %}
                         <img src="{{ evento.imagem.thumb.url }}" class="card-img-top img-fluid mb-3" alt="{{ evento.nome }}">
                         {% else %}
-                        <img src="{% static 'imagens/default.jpg' %}" class="card-img-top img-fluid mb-3" alt="Imagem não disponível">
+                        <img src="{% static 'imagens/default.jpg' %}" class="card-img-top img-fluid mb-3" alt="...">
                         {% endif %}
-                    </center>
                     {% if user.is_authenticated %}
-                    <button class="btn btn-block my-2">Comprar Ingresso</button>
+                    <a href="/detalhes_eventos/{{evento.id}}" class="btn btn-block my-2">Saiba mais...</a>
                     {% else %}
                     <div class="login-message text-center">
                         <p>Você precisa estar logado para adquirir o ingresso.</p>

@@ -15,6 +15,7 @@ def get_file_path(_instance, filename):
 
 class Evento(models.Model):
     nome = models.CharField(_('Nome'), blank=True, max_length=100)
+    data_inicio = models.DateField(_('Data de Inicio'), blank=True, null=True, help_text=_('Formato DD/MM/AAAA'))
     descricao = models.TextField(_('Descrição'), max_length=500)
     imagem = StdImageField(_('Imagem'), null=True, blank=True, upload_to=get_file_path,
                            variations={'thumb': {'width': 420, 'height': 260, 'crop': True}})

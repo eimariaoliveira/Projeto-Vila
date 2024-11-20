@@ -1,0 +1,18 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+
+<div class="container">
+<img src="{{atividade.imagem.thumb.url}}" alt="...">
+
+<div class="p-5 mb-4 bg-body-tertiary rounded-3">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">{{atividade.nome}}</h1>
+        <p class="col-md-8 fs-4">{{atividade.descricao}}</p>
+          <p class="col-md-8 fs-4"><strong>Capacidade:</strong> {{atividade.capacidade}}</p>
+          <p class="col-md-8 fs-4"><strong>Incio:</strong> {{atividade.hora_inicio}}</p>
+      </div>
+    <a href="/detalhes_atividade/{{atividade.id}}" class="btn btn-primary">Participar</a>
+    </div>
+</div>
+{% endblock %}
