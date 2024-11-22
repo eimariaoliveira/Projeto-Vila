@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, reverse
 from .forms import UsuarioCreationForm
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, UpdateView
 from django.contrib.auth.decorators import login_required
-from .models import Evento, Atividade
+from .models import Evento, Atividade, Usuario
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -54,6 +54,20 @@ class CriarUsuario(FormView):
 
     def get_success_url(self):
         return reverse('login')
+
+class EditarUsuario(LoginRequiredMixin, UpdateView):
+    template_name = 'editardados.html'
+    model = Usuario
+    fields = ['username', 'email', 'first_name', 'last_name', 'telefone', 'cpf']
+
+    def get_object(self, queryset=None):
+        # Buscar o objeto usando o parâmetro 'id' passado na URL
+        return self.model.objects.get(pk=self.kwargs['id'])
+
+    def get_success_url(self):
+        return reverse('index') #mudar para pagina do perfil
+
+
 
 
 

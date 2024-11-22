@@ -37,7 +37,10 @@
       font-size: 24px;
       font-weight: 700;
     }
-
+.navbar .btn {
+    margin-left: auto; /* Empurra o botão para a direita */
+    margin-right: 15px; /* Adiciona uma margem à direita para não ficar colado na borda */
+}
 
     .btn {
     color: white; background:#785333; border: 2px solid #785333;
@@ -164,7 +167,7 @@ footer {
         <a class="nav-link" style ="color: #785333;"  href="#">Sobre nós</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link"  style ="color: #785333;"  href="#">Eventos</a>
+        <a class="nav-link"  style ="color: #785333;"  href="{% url 'evento' %}">Eventos</a>
       </li>
 
     </ul>

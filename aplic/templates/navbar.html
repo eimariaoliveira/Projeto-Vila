@@ -1,5 +1,49 @@
 {% load static %}
+<style>
+    
+    body {
+      background-color: white;
+      color: #785333;
+      font-family: "Cinzel", serif;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    
 
+.btn {
+    color: white;
+    background: #785333;
+    border: 2px solid #785333;
+}
+
+.btn, .adquirir-ingresso {
+    color: white;
+    background-color: #785333;
+    border: 2px solid #785333;
+}
+
+li a i {
+    font-size: 24px;  /* Tamanho do ícone */
+    color: white;     /* Cor branca */
+    margin: 0 10px;   /* Espaço entre os ícones */
+}
+
+li a:hover i {
+    color: white;   /* Cor ao passar o mouse */
+}
+
+.btn:hover, .adquirir-ingresso:hover {
+    background-color: #785333;
+    color: white;
+    border: 2px solid #785333;
+}
+
+.btn-ajuste {
+    margin-left: auto;   /* Isso empurra o botão para a direita */
+    margin-right: 15px;  /* Adiciona uma margem à direita do botão */
+}
+
+</style>
 <nav class="navbar navbar-expand-lg">
     <a class="navbar-brand" href="{% url 'index' %}">
         <img src="{% static 'imagens/logo.png' %}" style="width:180px">
@@ -20,8 +64,11 @@
                 <a class="nav-link" style="color: #785333;" href="#">Eventos</a>
             </li>
         </ul>
-        <a href="{% url 'index' %}">
-            <button class="btn my-2 my-sm-0" type="button">Voltar</button>
-        </a>
+        <div class="btn-ajuste">
+            <a href="{% url 'index' %}">
+                <button class="btn my-2 my-sm-0" type="button">Voltar</button>
+            </a>
+        </div>
+
     </div>
 </nav>
