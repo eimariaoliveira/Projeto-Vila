@@ -193,9 +193,14 @@ footer {
                 <a class="nav-link" style="color: #785333;" href="#">Eventos</a>
             </li>
         </ul>
-        <a href="{% url 'index' %}">
-            <button class="btn my-2 my-sm-0" type="button">Voltar</button>
-        </a>
+        <div>
+            <a href="{% url 'login' %}">
+                <button class="btn my-2 my-sm-0" type="button">Login</button>
+            </a>
+            <a href="{% url 'index' %}">
+                <button class="btn my-2 my-sm-0" type="button">Voltar</button>
+            </a>
+        </div>
     </div>
 </nav>
 

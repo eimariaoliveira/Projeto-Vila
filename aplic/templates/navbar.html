@@ -1,6 +1,7 @@
 {% load static %}
 <style>
     
+    
     body {
       background-color: white;
       color: #785333;
@@ -61,14 +62,19 @@ li a:hover i {
                 <a class="nav-link" style="color: #785333;" href="#">Sobre nós</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="color: #785333;" href="#">Eventos</a>
+                <a class="nav-link" style="color: #785333;" href="{% url 'evento' %}">Eventos</a>
             </li>
         </ul>
-        <div class="btn-ajuste">
-            <a href="{% url 'index' %}">
-                <button class="btn my-2 my-sm-0" type="button">Voltar</button>
-            </a>
-        </div>
+          <div class="dropdown text-end">
+                    <a href="#" style="margin-right: 40px;" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu text-small">
+                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+                    </ul>
+          </div>
 
     </div>
 </nav>

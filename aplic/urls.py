@@ -13,6 +13,7 @@ urlpatterns = [
     path('detalhes_atividade/<int:id>/', AtividadeView.as_view(), name='detalhes_atividade'),
     path('cadastro/', CriarUsuario.as_view(), name='cadastro'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('editardados/<int:id>/', EditarUsuario.as_view(), name='editardados'),
     path('trocarsenha/', auth_views.PasswordChangeView.as_view(template_name='trocarsenha.html',
                                                               success_url=reverse_lazy('index')), name='trocarsenha'),

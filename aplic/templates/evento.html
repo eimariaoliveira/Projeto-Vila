@@ -8,13 +8,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Vila Toscana|Eventos</title>
 <!-- INICIO DOS LINKS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <!-- FINAL DOS LINKS -->
 
 <!-- INICIO DO STYLE -->
@@ -76,8 +79,31 @@ li a:hover i {
      
      
 .atividades .row {
-    gap: 15px; /* Espaço entre os itens */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Espaço entre os itens */
 }
+
+.atividades .col-md-4, .atividades .col-sm-6, .atividades .col-12 {
+    flex: 1 1 30%; /* Permitindo que os cards ocupem o máximo de espaço possível, mas não menos que 30% da largura */
+    max-width: 33.33%; /* Limita a largura máxima para 33.33% em telas médias */
+    margin: 0 10px; /* Espaço entre os cards */
+}
+
+@media (max-width: 768px) {
+    .atividades .col-md-4 {
+        flex: 1 1 45%; /* Reduz o tamanho dos cards em telas menores */
+        max-width: 45%;
+    }
+}
+
+@media (max-width: 576px) {
+    .atividades .col-md-4, .atividades .col-sm-6 {
+        flex: 1 1 100%; /* Em telas muito pequenas, os cards ocupam toda a largura */
+        max-width: 100%;
+    }
+}
+        
 
 .card-img-top {
     max-width: 100%;
@@ -168,14 +194,21 @@ footer {
 
     </ul>
         {% if user.is_authenticated %}
-        <a href="#">
-            <button class="btn my-2 my-sm-0" type="button">Sair</button>
-        </a>
-    {% else %}
-        <a href="{% url 'login' %}">
-            <button class="btn my-2 my-sm-0" type="button">Login</button>
-        </a>
-    {% endif %}
+            <div class="dropdown text-end">
+                <a href="#" style="margin-right: 40px;" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu text-small">
+                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+                </ul>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}">
+                <button class="btn my-2 my-sm-0" type="button">Login</button>
+            </a>
+        {% endif %}
 
   </div>
 </nav>
@@ -200,6 +233,7 @@ footer {
                     {% else %}
                     <div class="login-message text-center">
                         <p>Você precisa estar logado para adquirir o ingresso.</p>
+                        <a href="{% url 'login' %}" class="btn btn-block my-2">Entrar</a>
                     </div>
                     {% endif %}
                 </div>
@@ -208,72 +242,6 @@ footer {
         </div>
     </div>
 </div>
-{#            </div>#}
-{#               <div class="col-md-6 border">#}
-{#                    <div class="atividade p-3" style="text-align:center">Atividade 2</div>#}
-{#                    <p class="subtitulo">Hora da Criatividade: Aula de Arte e Artesanato!</p>#}
-{#                   <p class="descricao">Categoria: </p>#}
-{#                    <p class="descricao">#}
-{#                        Deixe sua imaginação fluir! Venha participar da nossa Aula de Arte e Artesanato, onde você pode explorar#}
-{#                        técnicas como pintura, cerâmica e scrapbooking. Uma atividade perfeita para relaxar, se expressar e, claro,#}
-{#                        criar lindas obras de arte!#}
-{#                    </p>#}
-{#                    <center>#}
-{#                        <img src="{% static 'imagens/atividade2.jpg' %}" style="width:300px; padding: 20px; text-align:center;">#}
-{#                        {% if user.is_authenticated %}#}
-{#                         <button class="btn my-2 my-sm-0" style="visibility: visible !important; display: block !important;">Comprar Ingresso</button>#}
-{#                        {% else %}#}
-{#                            <div class="login-message" style="text-align: center;">#}
-{#                                <p>Você precisa estar logado para adquirir o ingresso.</p>#}
-{#                            </div>#}
-{#                        {% endif %}#}
-{#                    </center>#}
-{##}
-{#                </div>#}
-{#                <div class="col-md-6 border" >#}
-{#                    <div class="atividade p-3" style="text-align:center">Atividade 3</div>#}
-{#                    <p class="subtitulo">Festa de Fantasia: Um Mundo de Magia e Diversão!</p>#}
-{#                    <p class="descricao">Categoria: </p>#}
-{#                    <p class="descricao">#}
-{#                        Prepare sua fantasia mais criativa e venha se encantar na nossa Festa de Fantasia! Um evento cheio de magia,#}
-{#                        onde você pode ser quem sempre sonhou: heróis, princesas, personagens históricos ou até mesmo algo totalmente#}
-{#                        inusitado! Será uma noite de risadas e surpresas que vão deixar todos com um sorriso no rosto.#}
-{#                    </p>#}
-{#                     <center>#}
-{#                        <img src="{% static 'imagens/atividade3.jpg' %}" style="width:300px; padding: 20px; text-align:center;">#}
-{#                        {% if user.is_authenticated %}#}
-{#                         <button class="btn my-2 my-sm-0" style="visibility: visible !important; display: block !important;">Comprar Ingresso</button>#}
-{#                        {% else %}#}
-{#                            <div class="login-message" style="text-align: center;">#}
-{#                                <p>Você precisa estar logado para adquirir o ingresso.</p>#}
-{#                            </div>#}
-{#                        {% endif %}#}
-{#                    </center>#}
-{##}
-{#                    </div>#}
-{#                   <div class="col-md-6 border" >#}
-{#                    <div class="atividade p-3" style="text-align:center">Atividade 4</div>#}
-{#                    <p class="subtitulo">Festa de Fantasia: Um Mundo de Magia e Diversão!</p>#}
-{#                    <p class="descricao">Categoria: </p>#}
-{#                    <p class="descricao">#}
-{#                        Prepare sua fantasia mais criativa e venha se encantar na nossa Festa de Fantasia! Um evento cheio de magia,#}
-{#                        onde você pode ser quem sempre sonhou: heróis, princesas, personagens históricos ou até mesmo algo totalmente#}
-{#                        inusitado! Será uma noite de risadas e surpresas que vão deixar todos com um sorriso no rosto.#}
-{#                    </p>#}
-{#                     <center>#}
-{#                        <img src="{% static 'imagens/atividade4.jpg' %}" style="width:300px; padding: 20px; text-align:center;">#}
-{#                        {% if user.is_authenticated %}#}
-{#                         <button class="btn my-2 my-sm-0" style="visibility: visible !important; display: block !important;">Comprar Ingresso</button>#}
-{#                        {% else %}#}
-{#                            <div class="login-message" style="text-align: center;">#}
-{#                                <p>Você precisa estar logado para adquirir o ingresso.</p>#}
-{#                            </div>#}
-{#                        {% endif %}#}
-{#                    </center>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#     </div>#}
 {% endblock %}
  <footer>
   <div class="footer-container">

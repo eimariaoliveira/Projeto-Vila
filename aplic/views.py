@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from .forms import UsuarioCreationForm
 from django.views.generic import TemplateView, FormView, UpdateView
-from django.contrib.auth.decorators import login_required
 from .models import Evento, Atividade, Usuario
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -22,7 +21,7 @@ class EventoView(TemplateView):
         context['eventos'] = Evento.objects.all()
         return context
 
-class EventoDetalheView(TemplateView):
+class EventoDetalheView(LoginRequiredMixin, TemplateView):
     template_name = 'detalhes_eventos.html'
 
     def get_context_data(self, **kwargs):
@@ -32,7 +31,7 @@ class EventoDetalheView(TemplateView):
         context['atividades'] = context['evento'].atividades.all()
         return context
 
-class AtividadeView(TemplateView):
+class AtividadeView(LoginRequiredMixin, TemplateView):
     template_name = 'detalhes_atividade.html'
 
     def get_context_data(self, **kwargs):
@@ -41,6 +40,14 @@ class AtividadeView(TemplateView):
         context['atividade'] = Atividade.objects.get(id=id)
         return context
 
+
+class UsuariosView(LoginRequiredMixin, TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['usuario'] = self.request.user
+        return context
 
 
 
