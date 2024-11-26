@@ -13,7 +13,7 @@ field.append(
     )
 
 field.append(
-    ('Informações complementares', {'fields': ('cpf', 'telefone', 'foto')}),
+    ('Informações complementares', {'fields': ('cpf', 'telefone', 'foto', 'data_nascimento')}),
     )
 UserAdmin.fieldsets = tuple(field)
 

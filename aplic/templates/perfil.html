@@ -1,3 +1,7 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -155,11 +159,12 @@
     <div class="container">
         <div class="profile-header">
             <div class="profile-image">
-                <img src="/api/placeholder/180/180" alt="Foto do Perfil">
+                <img src="{{ user.foto.url }}" alt="Foto do Perfil">
             </div>
-            <h1 class="profile-name">João da Silva</h1>
-            <div class="profile-email">joao.silva@email.com</div>
-            <button class="btn">Editar Perfil</button>
+            <h1 class="profile-name">{{ user.first_name }}</h1>
+            <p class="profile-name">{{ user.tipo }}</p>
+            <div class="profile-email">{{ user.email }}</div>
+            <button class="btn" onclick="window.location.href='{% url 'editardados' id=request.user.id %}'">Editar Perfil</button>
         </div>
 
         <div class="profile-info">
@@ -168,19 +173,15 @@
                 <div class="info-grid">
                     <div class="info-item">
                         <div class="info-label">CPF</div>
-                        <div class="info-value">123.456.789-00</div>
+                        <div class="info-value">{{user.cpf}}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Data de Nascimento</div>
-                        <div class="info-value">15/03/1990</div>
+                        <div class="info-value">{{user.data_nascimento}}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Telefone</div>
-                        <div class="info-value">(11) 98765-4321</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Estado Civil</div>
-                        <div class="info-value">Casado</div>
+                        <div class="info-value">{{user.telefone}}</div>
                     </div>
                 </div>
             </div>
@@ -214,3 +215,4 @@
     </div>
 </body>
 </html>
+{% endblock %}

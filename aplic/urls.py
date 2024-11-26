@@ -1,5 +1,5 @@
 from django.urls import path, reverse_lazy
-from .views import IndexView, EventoView, EventoDetalheView, CriarUsuario, AtividadeView, EditarUsuario
+from .views import IndexView, EventoView, EventoDetalheView, CriarUsuario, AtividadeView, EditarUsuario, PerfilUsuario
 from rest_framework.routers import SimpleRouter
 from django.contrib.auth import views as auth_views
 
@@ -16,6 +16,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('editardados/<int:id>/', EditarUsuario.as_view(), name='editardados'),
     path('trocarsenha/', auth_views.PasswordChangeView.as_view(template_name='trocarsenha.html',
-                                                              success_url=reverse_lazy('index')), name='trocarsenha'),
+                                                              success_url=reverse_lazy('perfil')), name='trocarsenha'),
+    path('perfil/<int:id>/', PerfilUsuario.as_view(), name='perfil'),
 
 ]

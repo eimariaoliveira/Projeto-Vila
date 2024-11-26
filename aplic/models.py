@@ -37,6 +37,7 @@ class Usuario(AbstractUser):
     tipo = models.CharField(_('Tipo de usuario'), max_length=25, choices=TIPO_USUARIO, default="Residente")
     cpf = models.CharField(_('CPF'), max_length=11, blank=True, null=True)
     telefone = models.CharField(_('Telefone'), blank=True, max_length=11, help_text=_('Formato (00) 00000-0000'))
+    data_nascimento = models.DateField('Data de nascimento', blank=True, null=True, help_text=_('Formato (DD/MM/AA'))
     foto = StdImageField(_('Imagem'), null=True, blank=True, upload_to=get_file_path,
                          variations={'thumb': {'width': 420, 'height': 260, 'crop': True}})
 
