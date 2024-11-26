@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from .forms import UsuarioCreationForm
 from django.views.generic import TemplateView, FormView, UpdateView
-from .models import Evento, Atividade, Usuario, AbstractUser
+from .models import Evento, Atividade, Usuario, Endereco
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -73,6 +73,17 @@ class EditarUsuario(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('perfil', kwargs={'id': self.request.user.id})
 
+class EditarEndereco(LoginRequiredMixin, UpdateView):
+    template_name = 'editarendereco.html'
+    model = Endereco
+    fields = ['logradouro', 'numero', 'complemento', 'bairro', 'cep', 'cidade', 'estado']
+
+    def get_object(self, queryset=None):
+        return self.model.objects.get(pk=self.kwargs['id'])
+
+    def get_success_url(self):
+        return reverse('perfil', kwargs={'id': self.request.user.id})
+
 
 class PerfilUsuario(LoginRequiredMixin, TemplateView):
     template_name = 'perfil.html'
@@ -81,14 +92,5 @@ class PerfilUsuario(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['usuario'] = self.request.user
         return context
-
-
-
-
-
-
-
-
-
 
 

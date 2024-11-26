@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Evento,Usuario, Atividade, Endereco, Responsavel, Categoria, Inscricao, Feedback, Notificacao
+from .models import Evento,Usuario, Atividade, Endereco, Categoria, Inscricao, Feedback, Notificacao
 from django.contrib.auth.admin import UserAdmin
 
 
@@ -24,9 +24,6 @@ class EnderecoInline(admin.TabularInline):
     extra = 1
 
 
-class ResponsavelInline(admin.TabularInline):
-    model = Responsavel
-    extra = 1
 
 
 @admin.register(Evento)
@@ -45,10 +42,6 @@ class EnderecoAdmin(admin.ModelAdmin):
     list_display = ('logradouro', 'numero', 'bairro', 'cidade', 'estado', 'cep')
 
 
-@admin.register(Responsavel)
-class RespostavelAdmin(admin.ModelAdmin):
-    inlines = [EnderecoInline]
-    list_display = ('telefone', 'celular', 'telefone_comercial')
 
 
 @admin.register(Categoria)

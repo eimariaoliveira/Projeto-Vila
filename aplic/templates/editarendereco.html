@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% load static %}
+{% load static %}
 {% load crispy_forms_tags %}
 
 <!DOCTYPE html>
@@ -206,11 +202,11 @@ footer {
 <!-- Container de Cadastro -->
 <div class="login-container">
     <div class="login">
-        <h2 class="text-center mb-4">Atualizar Dados</h2>
+        <h2 class="text-center mb-4">Atualizar Endereço</h2>
         <div class="teste" >
             <form method="post" style="font-size:12px">
                 {% csrf_token %}
-                {{ form.as_p }}  <!-- Exibe os campos do formulário -->
+                {{ form | crispy }}  <!-- Exibe os campos do formulário -->
                 <div class="form-group" style="font-size:12px">
                     {% if form.errors %}
                         <div class="alert alert-danger">
@@ -225,7 +221,6 @@ footer {
                     {% endif %}
                 </div>
              <button type="submit" class="btn btn-primary btn-block mt-3">Salvar</button>
-                <a class="btn btn-primary btn-block mt-3" href="{% url 'trocarsenha' %}">Trocar senha</a>
           </form>
         </div>
     </div>

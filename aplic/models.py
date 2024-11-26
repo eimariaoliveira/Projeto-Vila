@@ -79,7 +79,7 @@ class Responsavel(models.Model):
     celular = models.CharField(_('Celular'), blank=True, max_length=11, help_text=_('Formato (00) 00000-0000'))
     telefone_comercial = models.CharField(_('Tel. Comercial'), blank=True, max_length=11,
                                           help_text=_('Formato (00) 0000-0000'))
-    residentes = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    usuarios = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _('Responsável')
@@ -117,15 +117,15 @@ class Endereco(models.Model):
         ('TO', 'Tocantins'),
     ]
 
-    cep = models.CharField(_('CEP'), blank=True, max_length=10, help_text=_('Formato 00.000-000'))
+    cep = models.CharField(_('CEP'), blank=True, max_length=10)
     logradouro = models.CharField(_('Logradouro'), blank=True, max_length=50)
     numero = models.CharField(_('Número'), blank=True, max_length=10)
     complemento = models.CharField(_('Complemento'), blank=True, max_length=10)
     bairro = models.CharField(_('Bairro'), blank=True, max_length=50)
     cidade = models.CharField(_('Cidade'), blank=True, max_length=50)
-    estado = models.CharField(_('UF'), blank=True, max_length=2, choices=ESTADOS_CHOICES, help_text=_('Formato AA'))
-    administrador = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    responsavel = models.ForeignKey(Responsavel, on_delete=models.CASCADE, blank=True, null=True)
+    estado = models.CharField(_('UF'), blank=True, max_length=2, choices=ESTADOS_CHOICES)
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name='endereco', verbose_name=_('Usuario'))
+
 
     class Meta:
         verbose_name = _('Endereço')
@@ -141,7 +141,7 @@ class Inscricao(models.Model):
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente')
     dataHora_inscricao = models.DateTimeField(auto_now_add=True)
-    residente = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=True, null=True)
+    usuarios = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=True, null=True)
     atividade = models.ForeignKey(Atividade, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:

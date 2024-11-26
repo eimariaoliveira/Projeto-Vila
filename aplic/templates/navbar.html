@@ -1,6 +1,27 @@
 {% load static %}
 <style>
 
+    .name_user {
+    font-family: "Arial", sans-serif; 
+    font-size: 14px; 
+    color: #785333; /
+    margin: 0; 
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-end; 
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+}
+
+.name_user p {
+    margin: 0.1rem; 
+    padding: 1rem;
+    text-align: right; 
+}
     
     body {
       background-color: white;
@@ -65,6 +86,9 @@ li a:hover i {
                 <a class="nav-link" style="color: #785333;" href="{% url 'evento' %}">Eventos</a>
             </li>
         </ul>
+    <div class="name_user">
+       <p>{{ user.tipo }}, {{ user.first_name }} {{ user.last_name }}</p> 
+    </div>
           <div class="dropdown text-end">
                     <a href="#" style="margin-right: 40px;" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         {% if user.foto %}
