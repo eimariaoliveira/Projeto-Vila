@@ -208,7 +208,7 @@ footer {
     <div class="login">
         <h2 class="text-center mb-4">Atualizar Dados</h2>
         <div class="teste" >
-            <form method="post" style="font-size:12px">
+            <form method="post" enctype="multipart/form-data" style="font-size:12px">
                 {% csrf_token %}
                 {{ form.as_p }}  <!-- Exibe os campos do formulário -->
                 <div class="form-group" style="font-size:12px">

@@ -65,7 +65,7 @@ class CriarUsuario(FormView):
 class EditarUsuario(LoginRequiredMixin, UpdateView):
     template_name = 'editardados.html'
     model = Usuario
-    fields = ['username', 'email', 'first_name', 'last_name', 'telefone', 'cpf', 'data_nascimento']
+    fields = ['username', 'email', 'first_name', 'last_name', 'telefone', 'cpf', 'data_nascimento', 'foto']
 
     def get_object(self, queryset=None):
         return self.model.objects.get(pk=self.kwargs['id'])
@@ -79,7 +79,13 @@ class EditarEndereco(LoginRequiredMixin, UpdateView):
     fields = ['logradouro', 'numero', 'complemento', 'bairro', 'cep', 'cidade', 'estado']
 
     def get_object(self, queryset=None):
-        return self.model.objects.get(pk=self.kwargs['id'])
+        return self.model.objects.filter(usuario=self.request.user).first()
+
+    def form_valid(self, form):
+        # Certifica-se de que o novo endereço seja vinculado ao usuário
+        if not form.instance.pk:
+            form.instance.usuario = self.request.user
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('perfil', kwargs={'id': self.request.user.id})

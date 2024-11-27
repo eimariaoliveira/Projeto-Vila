@@ -86,11 +86,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
 
-        'NAME': 'banco_projeto',
+        'NAME': 'vila',
 
         'USER': 'postgres',
 
-        'PASSWORD': '789123',
+        'PASSWORD': 'root',
 
         'HOST': 'localhost',
 

@@ -1,4 +1,5 @@
 {% extends 'base.html'  %}
+{% load static %}
 
 {% block content %}
 
@@ -159,7 +160,11 @@
     <div class="container">
         <div class="profile-header">
             <div class="profile-image">
-                <img src="{{ user.foto.url }}" alt="Foto do Perfil">
+                {% if user.foto %}
+                    <img src="{{ user.foto.url }}" alt="Foto do Perfil">
+                {% else %}
+                    <img src="{% static 'imagens/default-user.png' %}" alt="Foto do Perfil">
+                {% endif %}
             </div>
             <h1 class="profile-name">{{ user.first_name }}</h1>
             <p class="profile-name">{{ user.tipo }}</p>
@@ -191,31 +196,31 @@
                 <div class="info-grid">
                     <div class="info-item">
                         <div class="info-label">Logradouro</div>
-                        <div class="info-value">{{ user.endereco.logradouro }}</div>
+                        <div class="info-value" style="text-transform: uppercase;">{{ user.endereco.logradouro }}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Número</div>
-                        <div class="info-value">{{ user.endereco.numero }}</div>
+                        <div class="info-value" style="text-transform: uppercase;">{{ user.endereco.numero }}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Complemento</div>
-                        <div class="info-value">{{ user.endereco.complemento }}</div>
+                        <div class="info-value" style="text-transform: uppercase;">{{ user.endereco.complemento }}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Bairro</div>
-                        <div class="info-value">{{ user.endereco.bairro }}</div>
+                        <div class="info-value" style="text-transform: uppercase;">{{ user.endereco.bairro }}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Cidade</div>
-                        <div class="info-value">{{ user.endereco.cidade }}</div>
+                        <div class="info-value" style="text-transform: uppercase;">{{ user.endereco.cidade }}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Estado</div>
-                        <div class="info-value">{{ user.endereco.estado }}</div>
+                        <div class="info-value" style="text-transform: uppercase;">{{ user.endereco.estado }}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">CEP</div>
-                        <div class="info-value">{{ user.endereco.cep }}</div>
+                        <div class="info-value" style="text-transform: uppercase;">{{ user.endereco.cep }}</div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
