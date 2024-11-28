@@ -27,7 +27,7 @@
             margin-left: 13px;  /* Margem à esquerda do logo */
             margin-right: 13px; /* Margem à direita do logo, caso necessário */
         }
-    body {
+    body {  overflow: hidden!important; /* Impede que o fundo role */
       background-color: white;
       color: #785333;
       font-family: "Cinzel", serif;
@@ -209,7 +209,7 @@ footer {
         <a class="nav-link"  style ="color: #785333;" href="{% url 'index' %}">Home<span class="sr-only">(Página atual)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" style ="color: #785333;"  href="#">Sobre nós</a>
+        <a class="nav-link" style ="color: #785333;"  href="{% url 'sobrenos' %}">Sobre nós</a>
       </li>
       <li class="nav-item">
         <a class="nav-link"  style ="color: #785333;"  href="{% url 'evento' %}">Eventos</a>

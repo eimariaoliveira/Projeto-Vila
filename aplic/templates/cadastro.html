@@ -30,7 +30,7 @@
         background-color: white;
     }
 
-    body {
+    body {overflow: hidden!important;
         background-color: white;
         color: #785333;
         font-family: "Cinzel", serif;
@@ -105,12 +105,14 @@ li a:hover i {
     flex-direction: column; /* Mantém os cards empilhados */
     gap: 20px; /* Espaço entre as divs */
     padding: 50px 0;
+
 }
 footer {
   background-color: #688674;
   padding: 20px;
   text-align: left;
-  color:white
+  color:white;
+
 }
 
 .footer-container {
@@ -167,6 +169,8 @@ footer {
     .login button:hover {
         background-color: #6c4f2a;
     }
+
+
     </style>
     <!-- FINAL DO STYLE -->
 </head>
@@ -203,33 +207,34 @@ footer {
         </div>
     </div>
 </nav>
-
-<!-- Container de Cadastro -->
-<div class="login-container">
-    <div class="login">
-        <h2 class="text-center mb-4">Cadastro de Usuário</h2>
-        <div class="teste" >
-            <form method="post" style="font-size:12px">
-                {% csrf_token %}
-                {{ form.as_p }}  <!-- Exibe os campos do formulário -->
-                <div class="form-group" style="font-size:12px">
-                    {% if form.errors %}
-                        <div class="alert alert-danger">
-                            <ul>
-                                {% for field in form %}
-                                    {% for error in field.errors %}
-                                        <li>{{ error }}</li>
+<center>
+    <!-- Container de Cadastro -->
+    <div>
+        <div class="login" >
+            <h2 class="text-center mb-4">Cadastro de Usuário</h2>
+            <div class="teste" >
+                <form method="post" style="font-size:12px">
+                    {% csrf_token %}
+                    {{ form.as_p }}  <!-- Exibe os campos do formulário -->
+                    <div class="form-group" style="font-size:12px">
+                        {% if form.errors %}
+                            <div class="alert alert-danger">
+                                <ul>
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
                                     {% endfor %}
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endif %}
-                </div>
-             <button type="submit" class="btn btn-primary btn-block mt-3">Finalizar Cadastro</button>
-          </form>
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                 <button type="submit" class="btn btn-primary btn-block mt-3">Finalizar Cadastro</button>
+              </form>
+            </div>
         </div>
     </div>
-</div>
+</center>
 <footer>
   <div class="footer-container">
     <div class="footer-redes" style="text-align:center">

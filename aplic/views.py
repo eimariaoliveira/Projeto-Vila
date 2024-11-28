@@ -50,6 +50,8 @@ class UsuariosView(LoginRequiredMixin, TemplateView):
         return context
 
 
+class SobrenosView(TemplateView):
+    template_name = 'sobrenos.html'
 
 class CriarUsuario(FormView):
     template_name = 'cadastro.html'
@@ -57,7 +59,7 @@ class CriarUsuario(FormView):
 
     def form_valid(self, form):
         form.save()
-        return super().form_valid
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('login')

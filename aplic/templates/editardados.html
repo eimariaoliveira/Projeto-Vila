@@ -34,7 +34,7 @@
         background-color: white;
     }
 
-    body {
+    body {overflow: hidden!important;
         background-color: white;
         color: #785333;
         font-family: "Cinzel", serif;
@@ -191,7 +191,7 @@ footer {
                 <a class="nav-link" style="color: #785333;" href="{% url 'index' %}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="color: #785333;" href="#">Sobre nós</a>
+                <a class="nav-link" style="color: #785333;" href="{% url 'sobrenos' %}">Sobre nós</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" style="color: #785333;" href="#">Eventos</a>
