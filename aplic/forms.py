@@ -1,13 +1,12 @@
-from django.contrib.auth.forms import UserCreationForm
-
-from .models import Usuario
 from django import forms
+from .models import Feedback
 
-
-class UsuarioCreationForm(UserCreationForm):
-    email = forms.EmailField()
-    cpf = forms.CharField(label='CPF',max_length=11, required=False)
-    telefone = forms.CharField(label='Telefone', max_length=11, required=False)
+class FeedbackForm(forms.ModelForm):
     class Meta:
-        model = Usuario
-        fields = ['first_name','last_name','cpf','telefone', 'email', 'username', 'password1', 'password2']
+        model = Feedback
+        fields = ['nome', 'email', 'mensagem']
+        widgets = {
+            'nome': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Seu nome'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Seu email'}),
+            'mensagem': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Sua mensagem'}),
+        }
