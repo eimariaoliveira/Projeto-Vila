@@ -197,7 +197,25 @@ footer {
         </a>
     </div>
 </nav>
+<!-- Formulário de Feedback -->
+        <form method="POST" class="mb-5">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Enviar Feedback</button>
+        </form>
 
+        <!-- Lista de Feedbacks -->
+        <h2 class="mb-3">Feedbacks Recebidos</h2>
+        <ul class="list-group">
+            {% for feedback in feedbacks %}
+                <li class="list-group-item">
+                    <strong>{{ feedback.nome }}</strong> ({{ feedback.criado_em|date:"d/m/Y H:i" }})<br>
+                    {{ feedback.mensagem }}
+                </li>
+            {% empty %}
+                <li class="list-group-item">Nenhum feedback ainda.</li>
+            {% endfor %}
+        </ul>
 <!-- Container de Cadastro -->
 <footer>
   <div class="footer-container">

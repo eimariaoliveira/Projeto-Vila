@@ -27,7 +27,6 @@ class Evento(models.Model):
     def __str__(self):
         return self.nome
 
-
 class Usuario(AbstractUser):
     TIPO_USUARIO = (
         ('Administrador', _('Administrador')),

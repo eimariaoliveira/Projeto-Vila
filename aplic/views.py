@@ -3,7 +3,8 @@ from .forms import UsuarioCreationForm
 from django.views.generic import TemplateView, FormView, UpdateView
 from .models import Evento, Atividade, Usuario, Endereco
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from .forms import FeedbackForm
+from django.contrib import messages
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -13,6 +14,15 @@ class IndexView(TemplateView):
         context['eventos'] = Evento.objects.order_by('-id').all()
         return context
 
+def feedback_view(request):
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('pagina_de_sucesso')  # Ajuste o nome da página
+    else:
+        form = FeedbackForm()
+    return render(request, 'feedback.html', {'form': form})
 class EventoView(TemplateView):
     template_name = 'evento.html'
 
@@ -53,6 +63,17 @@ class UsuariosView(LoginRequiredMixin, TemplateView):
 class SobrenosView(TemplateView):
     template_name = 'sobrenos.html'
 
+def feedback_view(request):
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('feedback')  # Redireciona após salvar
+    else:
+        form = FeedbackForm()
+
+    feedbacks = Feedback.objects.all().order_by('-criado_em')  # Lista de feedbacks
+    return render(request, 'feedback.html', {'form': form, 'feedbacks': feedbacks})
 class CriarUsuario(FormView):
     template_name = 'cadastro.html'
     form_class = UsuarioCreationForm
@@ -102,3 +123,17 @@ class PerfilUsuario(LoginRequiredMixin, TemplateView):
         return context
 
 
+
+def feedback_view(request):
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Feedback enviado com sucesso!')
+            return redirect('feedback')  # Substitua 'feedback' pelo nome correto da sua URL
+        else:
+            messages.error(request, 'Erro ao enviar o feedback. Verifique os dados.')
+    else:
+        form = FeedbackForm()
+
+    return render(request, 'feedback.html', {'form': form})
