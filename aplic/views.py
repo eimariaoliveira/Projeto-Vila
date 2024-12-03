@@ -4,7 +4,69 @@ from django.views.generic import TemplateView, FormView, UpdateView
 from .models import Evento, Atividade, Usuario, Endereco
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import FeedbackForm
+from django.views.generic import DetailView
+from django.shortcuts import get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def inscrever_atividade(request, id):
+    atividade = get_object_or_404(Atividade, id=id)
+
+    if request.method == 'POST':
+        # Verificar se o usuário está tentando se inscrever
+        if 'inscrever' in request.POST:
+            # Verificar se o usuário já está inscrito
+            if request.user in atividade.inscritos.all():
+                messages.error(request, 'Você já está inscrito nesta atividade.')
+            else:
+                inscritos_count = atividade.inscritos.count()
+
+                # Verificar se a atividade atingiu a capacidade
+                if atividade.capacidade and inscritos_count >= atividade.capacidade:
+                    messages.error(request, 'A atividade já atingiu a capacidade máxima.')
+                else:
+                    atividade.inscritos.add(request.user)
+
+                    # Atualizar a capacidade, se necessário
+                    if atividade.capacidade:
+                        atividade.capacidade -= 1
+                        atividade.save()
+
+                    messages.success(request, 'Sua inscrição foi feita com sucesso!')
+
+        # Verificar se o usuário está tentando cancelar a inscrição
+        elif 'cancelar' in request.POST:
+            if request.user in atividade.inscritos.all():
+                atividade.inscritos.remove(request.user)
+
+                # Atualizar a capacidade, se necessário
+                if atividade.capacidade is not None:
+                    atividade.capacidade += 1
+                    atividade.save()
+
+                messages.success(request, 'Sua inscrição foi cancelada com sucesso!')
+            else:
+                messages.error(request, 'Você não está inscrito nesta atividade.')
+
+        return redirect('detalhes_atividade', id=id)
+    else:
+        return redirect('detalhes_atividade', id=id)
+
+
+class AtividadeView(DetailView):
+    model = Atividade
+    template_name = 'atividade_detalhes.html'
+    context_object_name = 'atividade'
+
+    def post(self, request, *args, **kwargs):
+        atividade = self.get_object()
+
+        messages.success(request, 'Sua inscrição foi feita com sucesso!')
+
+        # Redirecionar de volta para a página de detalhes
+        return redirect('detalhes_atividade', id=atividade.id)
+
 
 class IndexView(TemplateView):
     template_name = 'index.html'

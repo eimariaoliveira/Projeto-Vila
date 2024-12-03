@@ -3,7 +3,7 @@ from .views import IndexView,SobrenosView, EventoView, EventoDetalheView, CriarU
 from rest_framework.routers import SimpleRouter
 from django.contrib.auth import views as auth_views
 from .views import feedback_view
-
+from . import views
 
 router = SimpleRouter()
 
@@ -21,8 +21,8 @@ urlpatterns = [
     path('trocarsenha/', auth_views.PasswordChangeView.as_view(template_name='trocarsenha.html',
                                                               success_url=reverse_lazy('perfil')), name='trocarsenha'),
     path('perfil/<int:id>/', PerfilUsuario.as_view(), name='perfil'),
+    path('inscrever_atividade/<int:id>/', views.inscrever_atividade, name='inscrever_atividade'),
     path('editarendereco/<int:id>/', EditarEndereco.as_view(), name='editarendereco'),
     path('feedback/', feedback_view, name='feedback'),
 ]
-
 

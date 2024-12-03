@@ -63,6 +63,7 @@ class Atividade(models.Model):
     imagem = StdImageField(_('Imagem'), null=True, blank=True, upload_to=get_file_path,
                            variations={'thumb': {'width': 420, 'height': 260, 'crop': True}})
     categorias = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True, blank=True)
+    inscritos = models.ManyToManyField(Usuario, related_name='atividades_inscritas', blank=True)
 
     class Meta:
         verbose_name = _('Atividade')

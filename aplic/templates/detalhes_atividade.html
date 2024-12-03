@@ -2,128 +2,65 @@
 
 {% block content %}
     <style>
-    
-    /* Centralizar texto no bloco do evento */
-.p-5 {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centraliza o conteúdo horizontalmente */
-    justify-content: center;
-    text-align: center; /* Centraliza o texto */
-}
+        .btn-primary {
+            background-color: #785333;
+            border-color: #785333;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+        }
 
-/* Estilizando a descrição do evento */
-.p-5 p {
-    font-size: 1.25rem;
-    margin-bottom: 15px;
-    text-align: center; /* Centraliza a descrição */
-    width: 100%;  /* Garante que o texto ocupe toda a largura possível */
-    max-width: 800px; /* Ajusta um limite de largura para o texto */
-}
+        .btn-primary:disabled {
+            background-color: #ccc;
+            border-color: #ccc;
+            cursor: not-allowed;
+        }
 
-/* Ajuste para o título do evento */
-.p-5 h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    text-align: center; /* Centraliza o título */
-}
+        .btn-danger {
+            background-color: #d9534f;
+            border-color: #d9534f;
+            font-size: 1rem;
+            padding: 10px 20px;
+        }
 
-/* Estilizando o botão do evento */
-.btn-primary {
-    background-color: #785333;
-    border-color: #785333;
-    font-size: 1.1rem;
-    padding: 10px 20px;
-    text-align: center; /* Garantir que o botão tenha um alinhamento adequado */
-}
-
-    /* Centralizando o conteúdo do evento */
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-.container img {
-    max-width: 100%;
-    height: auto;
-    object-fit: cover;
-    margin-bottom: 20px;
-}
-
-/* Melhorando o estilo do bloco do evento */
-.p-5 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.p-5 h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-.p-5 p {
-    font-size: 1.25rem;
-    margin-bottom: 15px;
-}
-
-.btn-primary {
-    background-color: #785333; /* Ajuste da cor */
-    border-color: #785333;
-    font-size: 1.1rem;
-    padding: 10px 20px;
-}
-
-/* Estilizando as atividades */
-.row-cols-md-3 {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-.card {
-    width: 18rem;
-    margin-bottom: 20px;
-}
-
-.card-img-top {
-    object-fit: cover;
-    height: 200px;
-}
-
-.card-body {
-    text-align: center;
-}
-
-.card-title {
-    font-size: 1.25rem;
-    margin-bottom: 15px;
-}
-
-.card-text {
-    font-size: 1rem;
-    margin-bottom: 20px;
-}
-
+        .cancel-button {
+            display: none;
+        }
     </style>
 
-<div class="container">
-<img src="{{atividade.imagem.thumb.url}}" alt="...">
+    <div class="container">
+        <img src="{{atividade.imagem.thumb.url}}" alt="...">
 
-<div class="p-5 mb-4 bg-body-tertiary rounded-3">
-      <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">{{atividade.nome}}</h1>
-        <p class="col-md-8 fs-4">{{atividade.descricao}}</p>
-          <p class="col-md-8 fs-4"><strong>Capacidade:</strong> {{atividade.capacidade}}</p>
-          <p class="col-md-8 fs-4"><strong>Incio:</strong> {{atividade.hora_inicio}}</p>
-      </div>
-    <a href="/detalhes_atividade/{{atividade.id}}" class="btn btn-primary">Participar</a>
+        <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">{{atividade.nome}}</h1>
+                <p class="col-md-8 fs-4">{{atividade.descricao}}</p>
+                <p class="col-md-8 fs-4"><strong>Capacidade:</strong> {{atividade.capacidade}}</p>
+                <p class="col-md-8 fs-4"><strong>Início:</strong> {{atividade.hora_inicio}}</p>
+
+                {% if user in atividade.inscritos.all %}
+                    <form method="POST" action="{% url 'inscrever_atividade' atividade.id %}" id="inscricao-form">
+                        {% csrf_token %}
+                        <button type="submit" name="cancelar" class="btn btn-danger">Cancelar Inscrição</button>
+                    </form>
+                {% else %}
+                    <form method="POST" action="{% url 'inscrever_atividade' atividade.id %}" id="inscricao-form">
+                        {% csrf_token %}
+                        <button type="submit" name="inscrever" class="btn btn-primary" id="btn-inscrever">Participar</button>
+                    </form>
+                {% endif %}
+
+            </div>
+        </div>
+
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
-</div>
+
 {% endblock %}
