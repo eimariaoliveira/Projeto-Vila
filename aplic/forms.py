@@ -1,15 +1,39 @@
-from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from .models import Feedback
+
+from .models import Usuario, Evento, Feedback, Atividade
 from django import forms
+
 
 class UsuarioCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-
+    email = forms.EmailField()
+    cpf = forms.CharField(label='CPF',max_length=11, required=False)
+    telefone = forms.CharField(label='Telefone', max_length=11, required=False)
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        model = Usuario
+        fields = ['first_name','last_name','cpf','telefone', 'email', 'username', 'password1', 'password2']
+
+
+class EventoForm(forms.ModelForm):
+    class Meta:
+        model = Evento
+        fields = ['nome', 'descricao', 'data_inicio', 'imagem']
+        widgets = {
+            'data_inicio': forms.DateTimeInput(attrs={'type': 'date-local'}),
+            'imagem': forms.ClearableFileInput(attrs={'class': 'form-control'})
+        }
+
+
+class AtividadeForm(forms.ModelForm):
+    class Meta:
+        model = Atividade
+        fields = ['evento','nome', 'descricao', 'data_inicio','hora_inicio','local','capacidade','categoria', 'imagem']
+        widgets = {
+            'data_inicio': forms.DateTimeInput(attrs={'type': 'date-local'}),
+            'hora_inicio': forms.TimeInput(attrs={'type': 'Time-local'}),
+            'imagem': forms.ClearableFileInput(attrs={'class': 'form-control'})
+        }
+
+
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
@@ -24,3 +48,4 @@ class FeedbackForm(forms.ModelForm):
             'comentario': 'Comentário',
             'nota': 'Nota (0 a 10)',
         }
+

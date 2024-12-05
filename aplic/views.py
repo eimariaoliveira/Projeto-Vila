@@ -1,13 +1,14 @@
-from django.shortcuts import render, redirect, reverse
-from .forms import UsuarioCreationForm
-from django.views.generic import TemplateView, FormView, UpdateView
-from .models import Evento, Atividade, Usuario, Endereco
-from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import FeedbackForm
-from django.views.generic import DetailView
-from django.shortcuts import get_object_or_404
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.urls import reverse_lazy
+from .forms import UsuarioCreationForm, FeedbackForm
+from django.views.generic import TemplateView, FormView, UpdateView, DeleteView, ListView, CreateView, DetailView
+from .models import Evento, Atividade, Usuario, Endereco, Feedback, Categoria
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
+
+
+
 
 @login_required
 def inscrever_atividade(request, id):
@@ -67,7 +68,6 @@ class AtividadeView(DetailView):
         # Redirecionar de volta para a página de detalhes
         return redirect('detalhes_atividade', id=atividade.id)
 
-
 class IndexView(TemplateView):
     template_name = 'index.html'
 
@@ -76,15 +76,7 @@ class IndexView(TemplateView):
         context['eventos'] = Evento.objects.order_by('-id').all()
         return context
 
-def feedback_view(request):
-    if request.method == 'POST':
-        form = FeedbackForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('pagina_de_sucesso')  # Ajuste o nome da página
-    else:
-        form = FeedbackForm()
-    return render(request, 'feedback.html', {'form': form})
+
 class EventoView(TemplateView):
     template_name = 'evento.html'
 
@@ -92,6 +84,7 @@ class EventoView(TemplateView):
         context = super(EventoView, self).get_context_data(**kwargs)
         context['eventos'] = Evento.objects.all()
         return context
+
 
 class EventoDetalheView(LoginRequiredMixin, TemplateView):
     template_name = 'detalhes_eventos.html'
@@ -102,6 +95,7 @@ class EventoDetalheView(LoginRequiredMixin, TemplateView):
         context['evento'] = Evento.objects.get(id=id)
         context['atividades'] = context['evento'].atividades.all()
         return context
+
 
 class AtividadeView(LoginRequiredMixin, TemplateView):
     template_name = 'detalhes_atividade.html'
@@ -125,6 +119,7 @@ class UsuariosView(LoginRequiredMixin, TemplateView):
 class SobrenosView(TemplateView):
     template_name = 'sobrenos.html'
 
+
 def feedback_view(request):
     if request.method == 'POST':
         form = FeedbackForm(request.POST)
@@ -136,6 +131,8 @@ def feedback_view(request):
 
     feedbacks = Feedback.objects.all().order_by('-criado_em')  # Lista de feedbacks
     return render(request, 'feedback.html', {'form': form, 'feedbacks': feedbacks})
+
+
 class CriarUsuario(FormView):
     template_name = 'cadastro.html'
     form_class = UsuarioCreationForm
@@ -147,6 +144,7 @@ class CriarUsuario(FormView):
     def get_success_url(self):
         return reverse('login')
 
+
 class EditarUsuario(LoginRequiredMixin, UpdateView):
     template_name = 'editardados.html'
     model = Usuario
@@ -157,6 +155,7 @@ class EditarUsuario(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('perfil', kwargs={'id': self.request.user.id})
+
 
 class EditarEndereco(LoginRequiredMixin, UpdateView):
     template_name = 'editarendereco.html'
@@ -185,7 +184,6 @@ class PerfilUsuario(LoginRequiredMixin, TemplateView):
         return context
 
 
-
 def feedback_view(request):
     if request.method == 'POST':
         form = FeedbackForm(request.POST)
@@ -199,3 +197,83 @@ def feedback_view(request):
         form = FeedbackForm()
 
     return render(request, 'feedback.html', {'form': form})
+
+
+class EventoListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = Evento
+    template_name = 'painel.html'
+    context_object_name = 'eventos'
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.groups.filter(name__in=['Administrador']).exists()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['atividades'] = Atividade.objects.all().order_by('data_inicio')
+        return context
+
+
+class EventoDeleteView(DeleteView):
+    model = Evento
+    template_name = 'delete.html'
+    success_url = reverse_lazy('evento')
+
+    def get_queryset(self):
+        return Evento.objects.all()
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.groups.filter(name__in=['Administrador']).exists()
+
+
+class EventoCreateView(LoginRequiredMixin, CreateView):
+    model = Evento
+    template_name = 'create.html'
+    fields = ['nome', 'data_inicio', 'descricao', 'imagem']
+    success_url = reverse_lazy('evento')
+
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.groups.filter(name__in=['Administrador']).exists()
+
+
+class AtividadeDeleteView(DeleteView):
+    model = Atividade
+    template_name = 'atividade_delete.html'
+    success_url = reverse_lazy('evento')
+
+    def get_queryset(self):
+        return Atividade.objects.all()
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.groups.filter(name__in=['Administrador']).exists()
+
+
+class AtividadeCreateView(LoginRequiredMixin, CreateView):
+    model = Atividade
+    template_name = 'atividade_create.html'
+    fields = ['evento', 'nome', 'descricao', 'data_inicio', 'hora_inicio', 'local', 'capacidade', 'categoria', 'imagem']
+    success_url = reverse_lazy('evento')
+
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.groups.filter(name__in=['Administrador']).exists()
+
+
+class CategoriaCreateView(LoginRequiredMixin, CreateView):
+    model = Categoria
+    template_name = 'categoria_create.html'
+    fields = ['nome']
+    success_url = reverse_lazy('evento')
+
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.groups.filter(name__in=['Administrador']).exists()

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-danger text-white">
+            Confirmar Exclusão
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <p>Tem certeza que deseja excluir a Atividade "{{ object.nome }}"?</p>
+                <p>Esta ação não pode ser desfeita.</p>
+                
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-danger">
+                        Confirmar Exclusão
+                    </button>
+                    <a href="{% url 'painel' id=request.user.id %}" class="btn btn-secondary ml-2">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

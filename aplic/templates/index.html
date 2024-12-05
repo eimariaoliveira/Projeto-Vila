@@ -265,11 +265,15 @@ footer {
                              <img src="{% static 'imagens/default-user.png' %}" alt="Foto Padrão" width="32" height="32" class="rounded-circle">
                         {% endif %}
                     </a>
-                    <ul class="dropdown-menu text-small">
-                        <li><a class="dropdown-item" href="{% url 'perfil' id=request.user.id %}">Perfil</a></li>
+               <ul class="dropdown-menu text-small">
+                    {% if user.tipo == "Administrador" %}
+                        <li><a class="dropdown-item" href="{% url 'painel' id=request.user.id %}">Painel</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
-                    </ul>
+                    {% endif %}
+                    <li><a class="dropdown-item" href="{% url 'perfil' id=request.user.id %}">Perfil</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+                </ul>
         </div>
       {% else %}
     <a href="{% url 'login' %}">

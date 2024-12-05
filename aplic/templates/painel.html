@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Lista de Eventos</h1>
+    {% if user.is_authenticated %}
+        <a href="{% url 'create' %}" class="btn btn-primary">Criar Novo Evento</a>
+    {% endif %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'categoria_create' %}" class="btn btn-primary">Criar Nova Categoria</a>
+    {% endif %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'atividade_create' %}" class="btn btn-primary">Criar Nova Atividade</a>
+    {% endif %}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Data</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for evento in eventos %}
+            <tr>
+                <td>{{ evento.nome }}</td>
+                <td>{{ evento.data_inicio }}</td>
+                <td>
+                    <a href="{% url 'delete' evento.pk %}" class="btn btn-danger">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">Nenhum evento encontrado.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    <h1>Lista de Atividades</h1>
+
+
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Data</th>
+            <th>Categoria</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for atividade in atividades %}
+            <tr>
+                <td>{{ atividade.nome }}</td>
+                <td>{{ atividade.data_inicio }}</td>
+                <td>{{ atividade.categoria }}</td>
+                <td>
+                    <a href="{% url 'atividade_delete' atividade.pk %}" class="btn btn-danger">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">Nenhum atividade encontrada.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

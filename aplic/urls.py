@@ -1,9 +1,12 @@
 from django.urls import path, reverse_lazy
-from .views import IndexView,SobrenosView, EventoView, EventoDetalheView, CriarUsuario, AtividadeView, EditarUsuario, PerfilUsuario, EditarEndereco
+from .views import (IndexView,SobrenosView, EventoView, EventoDetalheView, CriarUsuario, AtividadeView, EditarUsuario,
+                    PerfilUsuario, EditarEndereco, EventoListView, EventoDeleteView, EventoCreateView, AtividadeDeleteView,
+                    AtividadeCreateView, CategoriaCreateView)
 from rest_framework.routers import SimpleRouter
 from django.contrib.auth import views as auth_views
 from .views import feedback_view
 from . import views
+
 
 router = SimpleRouter()
 
@@ -21,8 +24,16 @@ urlpatterns = [
     path('trocarsenha/', auth_views.PasswordChangeView.as_view(template_name='trocarsenha.html',
                                                               success_url=reverse_lazy('perfil')), name='trocarsenha'),
     path('perfil/<int:id>/', PerfilUsuario.as_view(), name='perfil'),
-    path('inscrever_atividade/<int:id>/', views.inscrever_atividade, name='inscrever_atividade'),
     path('editarendereco/<int:id>/', EditarEndereco.as_view(), name='editarendereco'),
     path('feedback/', feedback_view, name='feedback'),
+    path('painel/<int:id>/', EventoListView.as_view(), name='painel'),
+    path('delete/<int:pk>/', EventoDeleteView.as_view(), name='delete'),
+    path('create/', EventoCreateView.as_view(), name='create'),
+    path('atividade_create/', AtividadeCreateView.as_view(), name='atividade_create'),
+    path('atividade_delete/<int:pk>/', AtividadeDeleteView.as_view(), name='atividade_delete'),
+    path('categoria_create/', CategoriaCreateView.as_view(), name='categoria_create'),
+    path('inscrever_atividade/<int:id>/', views.inscrever_atividade, name='inscrever_atividade'),
+
 ]
+
 

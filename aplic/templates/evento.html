@@ -62,7 +62,7 @@
        .name_user {
     font-family: "Arial", sans-serif; 
     font-size: 14px; 
-    color: #785333;
+    color: #785333; /
     margin: 0; 
     display: flex; 
     align-items: center; 
@@ -229,6 +229,10 @@ footer {
                         {% endif %}
                     </a>
                     <ul class="dropdown-menu text-small">
+                        {% if user.tipo == "Administrador" %}
+                            <li><a class="dropdown-item" href="{% url 'painel' id=request.user.id %}">Painel</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                        {% endif %}
                         <li><a class="dropdown-item" href="{% url 'perfil' id=request.user.id %}">Perfil</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
